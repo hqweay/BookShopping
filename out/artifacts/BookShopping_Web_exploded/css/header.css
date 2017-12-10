@@ -1,0 +1,18 @@
+.top-nav {
+  height: auto;
+  background-color: #c9c3cb;
+}
+
+.top-nav-left {
+  float: left;
+  background-color: inherit;
+}
+
+.top-nav-right {
+  float: right;
+  background-color: inherit;
+}
+
+.top-nav-right a {
+  margin-right: 10px;
+}

@@ -1,0 +1,91 @@
+* {
+  -webkit-transition: background 200ms; //满足交互时的渐变效果
+  -o-transition: background 200ms;
+  transition: background 200ms;
+}
+body {
+  max-width: 1080px;
+  margin: 0 auto;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.7;
+  /*background-color: #c4c3cb;*/
+}
+
+
+
+.clear-float:after, .clear-float:before {
+  display: block;
+  content: " ";
+  clear: both;
+}
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9 {
+  float: left;
+}
+
+.col-1 {
+  width: 10%;
+}
+
+.col-2 {
+  width: 20%;
+}
+
+.col-3 {
+  width: 30%;
+}
+
+.col-4 {
+  width: 40%;
+}
+
+.col-5 {
+  width: 50%;
+}
+
+.col-6 {
+  width: 60%;
+}
+
+.col-7 {
+  width: 70%;
+}
+
+.col-8 {
+  width: 80%;
+}
+
+.col-9 {
+  width: 90%;
+}
+.manager{
+  float: right;
+}
+.manager h1{
+  font-size: 25px;
+}
+.menu{
+  float: left;
+  width: 20%;
+}
+.first-li li a{
+  color:#c43739;
+}
+.container{
+  float: left;
+  width: 70%;
+}
+.input-group{
+  margin-bottom: 10px;
+}
+.submit{
+  text-align: center;
+}

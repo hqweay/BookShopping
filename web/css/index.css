@@ -1,0 +1,36 @@
+.main-promote{
+    margin-top: 30px;
+
+}
+.book-type{
+    background-color: #13efef;
+    text-align: center;
+}
+.book-type .item:hover{
+    background-color: #13efa4;
+}
+.book-type-name{
+
+}
+.book-type-name a{
+    font-size: 20px;
+}
+.book-type-name:hover{
+    background-color: #eacdd1;
+}
+.cat-promote{
+    margin-top: 15px;
+}
+.cat-book-type-name:before{
+    content: "";
+    width: 5px;
+    height: 25px;
+    background: #dd182b;
+    float: left;
+    margin-right: 10px;
+}
+.cat-book-type-name{
+    font-size: 20px;
+    color: red;
+    line-height: 1;/*与before平行*/
+}

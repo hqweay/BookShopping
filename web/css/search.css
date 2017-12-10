@@ -1,0 +1,44 @@
+.search {
+  padding: 20px 0;
+}
+
+.logo {
+  width: 25%;
+  float: left;
+  font-size: 30px;
+}
+.search-bar {
+  float: left;
+  width: 50%;
+  height: 30px;
+}
+.search-bar button,
+.search-bar input {
+  display: block;
+  /* 使之为块级元素  */
+  height: inherit;
+  border: 0;
+  outline: 0;
+}
+.search-bar input {
+  float: left;
+  width: 50%;
+  font-size: 88%;
+}
+.search-bar input:hover {
+  -webkit-box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, .3);
+  box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, .3);
+}
+.search-bar button {
+  width: 20%;
+  border-radius: 10px;
+}
+.search-bar button:hover {
+  background-color: #2578b5;
+  color: #fff;
+}
+.my-cart {
+  width: 25%;
+  font-size: 30px;
+  float: right;
+}

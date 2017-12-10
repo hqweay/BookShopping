@@ -1,0 +1,36 @@
+div {
+    text-align: center;
+}
+
+.id-pass {
+    height: 20px;
+    padding: 20px;
+    margin-top: 2px;
+}
+
+input{
+    border: none;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+#submit {
+    border-radius: 3px;
+    border: none;
+    background-color: #00a0da;
+    height: 30px;
+    width: 60px;
+}
+
+span {
+    background-color: red;
+    display: inline-block;;
+    color: #fff;
+    border-radius: 4px;
+
+}
+
+#imageHeader {
+    width: 50%;
+    height: 120px;
+}
