@@ -3,20 +3,18 @@
 
 }
 .book-type{
-    background-color: #13efef;
+    background-color: #d1e3db;
     text-align: center;
+    margin-right: 3px;
 }
-.book-type .item:hover{
-    background-color: #13efa4;
-}
-.book-type-name{
-
+.intro{
+    margin-left: 5px;
 }
 .book-type-name a{
     font-size: 20px;
 }
 .book-type-name:hover{
-    background-color: #eacdd1;
+    background-color: #c4c3cb;
 }
 .cat-promote{
     margin-top: 15px;

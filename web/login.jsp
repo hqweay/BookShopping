@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>登录</title>
     <link rel="stylesheet" href="css/regis-login.css">
 
 </head>
@@ -19,7 +19,7 @@
 
 <div class="header">
     <span id="imageHeader">
-      ddd
+      欢迎欢迎，登陆吧！
     </span>
 </div>
 <form action="login" id="register" method="post">

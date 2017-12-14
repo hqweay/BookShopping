@@ -37,7 +37,7 @@ pageEncoding="utf-8"%>
               <img src="image-web/002.png" alt="次导航" />
             </div>
           </div>
-          <div class="intro col-2">
+          <div class="intro col-1">
              <a href = "#"><span class="anno" id = "Customer_name" >
                              欢迎,${Customer.name}
              </span>
