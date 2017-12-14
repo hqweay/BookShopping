@@ -31,7 +31,7 @@ public class BookType extends HttpServlet {
         String url = curl.substring(ctxPath.length());
         
         switch(url){
-            case "/booktype/add":
+            case "/book-type/add":
             	  try {
          			 connection = dbUtil.getCon();
          			 int count = dao.insertBookClass(bookClass);
@@ -57,7 +57,7 @@ public class BookType extends HttpServlet {
          			e.printStackTrace();
          		}
                 break;
-            case "/booktype/modify":
+            case "/book-type/modify":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.modifyBookClass(bookClass, Integer.parseInt(bookId));
@@ -84,7 +84,7 @@ public class BookType extends HttpServlet {
          			e.printStackTrace();
          		}
             	break;
-            case "/booktype/delete":
+            case "/book-type/delete":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.deleteBookClass(Integer.parseInt(bookId));

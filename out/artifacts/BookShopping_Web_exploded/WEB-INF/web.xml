@@ -89,6 +89,15 @@
 		<url-pattern>/test/*</url-pattern>
 	</servlet-mapping>
 
+    <servlet>
+        <servlet-name>bookType</servlet-name>
+        <servlet-class>web.admin.BookType</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookType</servlet-name>
+        <url-pattern>/book-type/*</url-pattern>
+    </servlet-mapping>
+
 	<!--Filter 配置
 	<filter>
 		<filter-name>managerFilter</filter-name>
