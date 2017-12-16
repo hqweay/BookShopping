@@ -106,6 +106,7 @@
 	<filter-mapping>
 		<filter-name>managerFilter</filter-name>
 		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>/test/*</url-pattern>
 	</filter-mapping>
 	-->
 </web-app>

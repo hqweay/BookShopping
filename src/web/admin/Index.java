@@ -11,7 +11,9 @@ import model.Book;
 import model.BookClass;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lenovo on 2017/12/3.
@@ -54,14 +56,16 @@ public class Index extends HttpServlet {
             	req.setAttribute("type", "layout/center-book-type.jsp");
             	req.getRequestDispatcher("/admin/Index.jsp").forward(req, resp);
                 break;
-            case "/test/img-book":
+            case "/test/book":
 
-                List<Book> books = dao.getBookListByType(1);
-                req.setAttribute("books", books);
-                req.setAttribute("type", "layout/img/center-img-book.jsp");
+                Map<String, List<Book>> booksMap = dao.getAllBooks();
+
+                req.setAttribute("booksMap", booksMap);
+                req.setAttribute("type", "layout/center-book.jsp");
                 req.getRequestDispatcher("/admin/Index.jsp").forward(req, resp);
 
                 break;
+
             	default:
                     break;
 

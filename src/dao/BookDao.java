@@ -1,9 +1,10 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 import model.Book;
 import model.BookClass;
@@ -156,42 +157,79 @@ public class BookDao {
    	return list;
 
    }
-	public List<model.Book> getBookListByType(int typeId){
-		String sql = "SELECT * FROM db_bookshopping.tb_book where book_typeid = " + typeId;
+
+	/**
+	 * 通过传入BookType对象来查询该类型下的所有书籍
+	 * @param bookClass
+	 * @return 一个书籍列表
+	 */
+	public List<model.Book> getBookListByType(BookClass bookClass) throws SQLException, ClassNotFoundException {
+		String sql = "SELECT * FROM db_bookshopping.tb_book where book_typeid = " + bookClass.getId();
 		util.DbUtil dbUtil = new util.DbUtil();
 		Connection connection = null;
 		List<model.Book> list = new java.util.ArrayList<model.Book>();
-		try {
-			connection = dbUtil.getCon();
-			java.sql.Statement statement = connection.createStatement();
-			ResultSet set = statement.executeQuery(sql);
-			while(set.next()){
-				Book book = new model.Book();
-				book.setAuthor(set.getString("book_author"));
-				book.setDescrible(set.getString("book_describe"));
-				book.setDiscount(set.getFloat("book_discount"));
-				book.setId(set.getInt("book_id"));
-				book.setName(set.getString("book_name"));
-				book.setType(set.getInt("book_typeid"));
-				book.setPrice(set.getFloat("book_price"));
-				book.setQuantity(set.getInt("book_quantity"));
-				book.setUrl(set.getString("book_url"));
-				list.add(book);
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		Connection con = dbUtil.getCon();
+		PreparedStatement statement = con.prepareStatement(sql);
+		ResultSet resultSet = statement.executeQuery();
+		while(resultSet.next()){
+			Book book = new Book();
+			book.setId(resultSet.getInt("Book_id"));
+			book.setName(resultSet.getString("Book_name"));
+			book.setPrice(resultSet.getFloat("Book_price"));
+			book.setDiscount(resultSet.getFloat("Book_discount"));
+			book.setType(resultSet.getInt("Book_typeid"));
+			book.setDescrible(resultSet.getString("Book_describe"));
+			book.setQuantity(resultSet.getInt("Book_quantity"));
+			book.setUrl(resultSet.getString("Book_url"));
+			book.setAuthor(resultSet.getString("Book_author"));
+		//		System.out.println("getTYpe里" + book.getType());
+			list.add(book);
 		}
 		return list;
 
 	}
+	public Map<String, List<Book>> getAllBooks(){
+		BookDao dao = new BookDao();
+		List<BookClass> bookClassList =  dao.getBookClass();
+
+		Map<String, List<Book>> books = new HashMap<>();
+
+		for(BookClass type : bookClassList){
+			try {
+				List<model.Book> bookList = dao.getBookListByType(type);
+				books.put(type.getBookClass(), bookList);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return books;
+	}
+
+
+
    //for testing
-    public static void main(String[] args) {
-        BookDao dao = new BookDao();
-        List<BookClass> a = dao.getBookClass();
-        System.out.println(a.get(0).getBookClass());
-    }
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+		BookDao dao = new BookDao();
+		Map<String, List<Book>> map = dao.getAllBooks();
+
+		List<Book> bl = (List<Book>)(map.get("青春文学"));
+		for(Book l:bl){
+		//	System.out.println(l.getName());
+		}
+		Set set = map.keySet();
+
+		for(Object s:set){
+			System.out.println(s.toString());
+
+		}
+
+
+
+
+	}
+
 }
