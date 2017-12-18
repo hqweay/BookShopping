@@ -10,13 +10,13 @@ pageEncoding="utf-8"%>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首页</title>
     <link href="css/index.css" rel="stylesheet" type="text/css" />
-    
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
  </head>
 
  <body>
     
       <!--  include header -->
-    <%@ include file="layout/header.jsp" %>
+     <%@ include file="layout/header.jsp" %>
       <!--  include search -->
       <%@ include file="layout/search.jsp" %>
 
@@ -75,8 +75,6 @@ pageEncoding="utf-8"%>
             </div>
           </div>
         </div>
-
-
         <!--  include footer -->
         <%@ include file="layout/footer.jsp" %>
   </body>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ch">
 
@@ -76,6 +77,25 @@
   <%@include file="layout/header.jsp"%>
   <div class="search-page">
     <ul>
+    <c:forEach items = "${books }" var = "e">
+      <li class="book clear-float">
+        <img src="${e.url }" alt="error">
+        <div class="info">
+          <p class="name">${e.name}</p>
+          <p class="writer">
+            <a href="#">${e.author}</a> 著 |
+          </p>
+          定价 :
+          <p class="price"> ¥${e.price}</p>
+          <p class="description">
+            ${e.describle }
+          </p>
+          <p>
+            <input type="button" value="加入购物车">
+          </p>
+        </div>
+      </li>
+    </c:forEach>
       <li class="book clear-float">
         <img src="image/English3.jpg" alt="error">
         <div class="info">

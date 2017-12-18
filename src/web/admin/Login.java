@@ -1,6 +1,5 @@
 package web.admin;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 import dao.CustomerDao;
 import dao.ManagerDao;
 import model.Customer;
@@ -19,10 +18,8 @@ public class Login extends javax.servlet.http.HttpServlet{
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //解决中文输出乱码
         resp.setContentType("text/html;charset=utf-8");
         resp.setCharacterEncoding("utf-8");
-System.out.println("执行到这没 zhixing");
         Manager manager = new Manager();
         manager.setName(req.getParameter("name"));
         manager.setPassword(req.getParameter("password"));

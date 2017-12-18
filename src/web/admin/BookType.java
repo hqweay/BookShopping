@@ -18,7 +18,7 @@ public class BookType extends HttpServlet {
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html;charset = utf-8");
+		response.setContentType("text/json;charset = utf-8");
 		String bookClass = request.getParameter("bookClass");
 		String bookId = request.getParameter("bookId");
         util.DbUtil dbUtil = new util.DbUtil();
@@ -27,80 +27,58 @@ public class BookType extends HttpServlet {
         JSONObject object = new JSONObject();
         String curl = request.getRequestURI();
         String ctxPath = request.getContextPath();
-        //除掉项目名称时访问页面当前路径
         String url = curl.substring(ctxPath.length());
-        
         switch(url){
+        //涔︾被澧炲姞
             case "/book-type/add":
             	  try {
          			 connection = dbUtil.getCon();
          			 int count = dao.insertBookClass(bookClass);
          			 System.out.println(count);
          			 if (count>0) {
-         				 object.put("success", "true");
+         				 object.put("successMsg", "娣诲姞鎴愬姛");
          			}else{
-         				object.put("success", "true");
-         				object.put("errorMsg", "添加失败，系统错误或者你想添加的书类已存在");
-         				
+         				object.put("errorMsg", "娣诲姞澶辫触锛屼綘鎯虫坊鍔犵殑涔︾被鍙兘宸茬粡瀛樺湪");
          			}
-         			response.setContentType("text/json;charset = utf-8");
-         			PrintWriter out=response.getWriter();
-         			out.println(object.toString());
-         			out.flush();
-         			out.close();
          		} catch (ClassNotFoundException e) {
          			// TODO Auto-generated catch block
          			e.printStackTrace();
          		} catch (SQLException e) {
          			// TODO Auto-generated catch block
-         			
          			e.printStackTrace();
          		}
                 break;
+            //涔︾被淇敼
             case "/book-type/modify":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.modifyBookClass(bookClass, Integer.parseInt(bookId));
          			 System.out.println(count);
          			if (count>0) {
-         				 object.put("success", "true");
-         				 object.put("successMsg", "修改成功");
+         				 object.put("successMsg", "淇敼鎴愬姛");
          			}else{
-         				object.put("success", "true");
-         				object.put("errorMsg", "修改失败");
+         				object.put("errorMsg", "淇敼澶辫触");
          				
          			}
-         			response.setContentType("text/json;charset = utf-8");
-         			PrintWriter out=response.getWriter();
-         			out.println(object.toString());
-         			out.flush();
-         			out.close();
          		} catch (ClassNotFoundException e) {
          			// TODO Auto-generated catch block
          			e.printStackTrace();
          		} catch (SQLException e) {
          			// TODO Auto-generated catch block
-         			
          			e.printStackTrace();
          		}
             	break;
+            //涔︾被鍒犻櫎
             case "/book-type/delete":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.deleteBookClass(Integer.parseInt(bookId));
          			 System.out.println(count);
          			if (count>0) {
-         				 object.put("success", "true");
-         				 object.put("successMsg", "删除成功");
+         				 object.put("successMsg", "鍒犻櫎鎴愬姛");
          			}else{
-         				object.put("success", "true");
-         				object.put("errorMsg", "删除失败");
+         				object.put("errorMsg", "鍒犻櫎澶辫触");
          			}
-         			response.setContentType("text/json;charset = utf-8");
-         			PrintWriter out=response.getWriter();
-         			out.println(object.toString());
-         			out.flush();
-         			out.close();
          		} catch (ClassNotFoundException e) {
          			// TODO Auto-generated catch block
          			e.printStackTrace();
@@ -109,14 +87,16 @@ public class BookType extends HttpServlet {
          			
          			e.printStackTrace();
          		}
-            	
             	break;
                 default:
                     break;
-        
-       
 		
 	}
+        
+            PrintWriter out=response.getWriter();
+			out.println(object.toString());
+			out.flush();
+			out.close();
 
 	}
 	

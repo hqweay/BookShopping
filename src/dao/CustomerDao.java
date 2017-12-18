@@ -25,7 +25,6 @@ public class CustomerDao {
 		statement.setInt(3, customer.getPhoneNum());
 		return statement.executeUpdate();
 	}
-
 	//根据用户名来查询
 	public Customer getCustomerByName(Connection con, String name){
 		Customer customer = null;
@@ -51,7 +50,6 @@ public class CustomerDao {
 		}
 		return customer;
 	}
-    
 	//根据用户名获取购物车集合
 	public List<Book> getCartListByName(Connection con, String name){
 		Statement statement = null;
@@ -84,7 +82,6 @@ public class CustomerDao {
 		}
 		return books;
 	}
-	
 	public void closeCon(Connection con){
 		if (con!=null) {
 			try {
@@ -119,14 +116,134 @@ public class CustomerDao {
 			}
 		return customerList;
 	}
-
+	//
+	public List<Customer> getUserList(int start, int number){
+		String sql = "SELECT * FROM tb_customer LIMIT "+start+","+number+";";
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
+		DbUtil util = new DbUtil();
+		Connection con = null;
+			try {
+				con = util.getCon();
+				Statement statement = con.createStatement();
+				ResultSet set = statement.executeQuery(sql);
+				while (set.next()) {
+					Customer customer = new Customer();
+					customer.setId(set.getInt("Customer_id"));
+					customer.setName(set.getString("Customer_name"));
+					customer.setPassword(set.getString("Customer_password"));
+					customer.setPhoneNum(set.getInt("Customer_phone"));
+					customer.setAddress(set.getString("Customer_address_id"));
+					customer.setOrderID(set.getInt("Customer_order_id"));
+					customerList.add(customer);
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		return customerList;
+	}
+	
+	//模糊查
+	public ResultSet searchCustomerByName(Connection con, String name){
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
+		String sql = "SELECT customer_id,customer_name,customer_phone,customer_address_id "
+				+ "FROM tb_customer where customer_name LIKE '%"+name+"%'";
+		ResultSet set = null;	
+		try {
+				Statement statement = con.createStatement();
+				set = statement.executeQuery(sql);
+				
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		return set;
+	}
+	
+	public ResultSet searchCustomerByNUm(Connection con,int num){
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
+		String sql = "SELECT customer_id,customer_name,customer_phone,customer_address_id "
+				+ "FROM tb_customer where customer_phone LIKE '%"+num+"%'";
+		ResultSet set = null;	
+		try {
+				Statement statement = con.createStatement();
+				 set = statement.executeQuery(sql);
+				
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		return set;
+	}
+    public ResultSet getUserResultSet(int start,int number){
+		String sql = "SELECT * FROM tb_customer LIMIT "+start+","+number+";";
+		DbUtil util = new DbUtil();
+		ResultSet set = null;
+		Connection con = null;
+			try {
+				con = util.getCon();
+				Statement statement = con.createStatement();
+				 set = statement.executeQuery(sql);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		return set;
+	}
+	//删除  
+	public int deleteCustomer(int customerId){
+		   String sql = "DELETE FROM tb_customer WHERE  customer_id = "+customerId+"";
+		   	util.DbUtil dbUtil = new util.DbUtil();
+		   	Connection connection = null;
+		   	int count = 0;
+		   	try {
+					connection = dbUtil.getCon();
+					java.sql.Statement statement = connection.createStatement();
+					 count = statement.executeUpdate(sql);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					try {
+						dbUtil.closeCon(connection);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+		   	   return count;
+	   }
+	//修改
+	public int modifyCustomer(Customer customer){
+		 String sql = "update tb_customer set customer_name = '"+customer.getName()+"' , customer_phone = "+customer.getPhoneNum()+", customer_address_id  = '"+customer.getAddress()+"'"
+		 		+ "where customer_id = "+customer.getId()+";";
+	   	util.DbUtil dbUtil = new util.DbUtil();
+	   	Connection connection = null;
+	   	int count = 0;
+	   	try {
+				connection = dbUtil.getCon();
+				java.sql.Statement statement = connection.createStatement();
+				 count = statement.executeUpdate(sql);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				try {
+					dbUtil.closeCon(connection);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+	   	   return count;
+	   }
 	//测试sql
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+ 	public static void main(String[] args)  {
 		util.DbUtil dbUtil = new util.DbUtil();
 		CustomerDao dao = new CustomerDao();
-		List<Book> list = dao.getCartListByName(dbUtil.getCon(), "zb");
-		Book book = list.get(1);
-		System.out.println(book);
+		List<Customer> customers = dao.getUserList(1, 3);
+		System.out.println(customers.get(1).getName());
 	}
-
 }
