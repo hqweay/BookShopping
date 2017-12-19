@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BookDao;
 import model.Book;
 import model.BookClass;
+import model.Customer;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -65,7 +66,13 @@ public class Index extends HttpServlet {
                 req.getRequestDispatcher("/admin/Index.jsp").forward(req, resp);
 
                 break;
-
+            case "/test/user":
+            	dao.CustomerDao customerDao = new dao.CustomerDao();
+            	List<Customer> customers = customerDao.getUserList(0, 10);
+            	req.setAttribute("customers", customers);
+                req.setAttribute("type", "layout/center-user-add.jsp");
+                req.getRequestDispatcher("/admin/Index.jsp").forward(req, resp);
+                break;
             	default:
                     break;
 

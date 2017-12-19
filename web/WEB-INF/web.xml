@@ -6,7 +6,16 @@
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
-
+    
+    <!-- Search -->
+    <servlet>
+    	<servlet-name>search</servlet-name>
+    	<servlet-class>web.Search</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>search</servlet-name>
+    	<url-pattern>/search</url-pattern>
+    </servlet-mapping>
 	<!--RegisterServlet -->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -56,18 +65,14 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>customerSetServlet</servlet-name>
-		<url-pattern>/customerSet.jsp</url-pattern>
+		<url-pattern>/customer/*</url-pattern>
 	</servlet-mapping>
-
 
 
 	<servlet-mapping>
 		<servlet-name>shoppingCar</servlet-name>
 		<url-pattern>/cart</url-pattern>
 	</servlet-mapping>
-	
-
-
 	<!-- 管理员登陆-->
 	<servlet-mapping>
 		<servlet-name>managerLogin</servlet-name>

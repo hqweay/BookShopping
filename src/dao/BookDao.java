@@ -44,9 +44,8 @@ public class BookDao {
         }
         return bookClasses;
     }
-    //Ôö¼ÓÊéÀà
-   public int insertBookClass(String bookClass){
-	   //ÕâÀïÎÒÉµÁË  ²»¸ÃÌí¼ÓÒ»¸öparam×Ö¶Î×ömapµÄ²éÑ¯²ÎÊı  ½á¹û tape×Ö¶ÎºÍid×Ö¶ÎÎªÊı×ÖºÍÖĞÎÄ   Ò²¿ÉÒÔ×ömapµÄkey  ÖĞÎÄ×ªÆ´ÒôÊ§°Ü ÏÈÕâÑù°É ²»×öĞŞ¸Ä
+    //æ’å…¥ä¹¦ç±»  ä¹¦ç±»åå­—æ®µçº¦æŸæ˜¯unique åˆ©ç”¨å¼‚å¸¸æ¥å¤„ç†ä¹¦ç±»é‡å¤æ’å…¥
+    public int insertBookClass(String bookClass){
     	String sql = "INSERT INTO `db_bookshopping`.`tb_booktype` (type, param) VALUES ('"+bookClass+"','"+bookClass+"')";
     	util.DbUtil dbUtil = new util.DbUtil();
     	Connection connection = null;
@@ -71,8 +70,8 @@ public class BookDao {
 		}
     	return count;
     }
-  
-   public int modifyBookClass(String bookClass,int bookId){
+    
+    public int modifyBookClass(String bookClass,int bookId){
 	 String sql = "update tb_booktype set type = '"+bookClass+"' where id = "+bookId+";";
    	util.DbUtil dbUtil = new util.DbUtil();
    	Connection connection = null;
@@ -98,7 +97,7 @@ public class BookDao {
    	   return count;
    }
    
-   public int deleteBookClass(int bookId){
+    public int deleteBookClass(int bookId){
 	   String sql = "DELETE FROM tb_booktype where  id = "+bookId+"";
 	   	util.DbUtil dbUtil = new util.DbUtil();
 	   	Connection connection = null;
@@ -124,8 +123,8 @@ public class BookDao {
 	   	   return count;
    }
 
- //»ñÈ¡Êı¾İ¿âÖĞÃ¿ÖÖÃÀĞÍµÄÇ°¼¸¸öÍ¼Êé¶ÔÏó
-   public List<model.Book> getBookListById(int id){
+    //è·å–ä¸€ç§ä¹¦ç±»çš„å‰å‡ æœ¬ä¹¦  è¿”å›ä¸€ä¸ªé›†åˆ
+    public List<model.Book> getBookListById(int id){
    	String sql = "SELECT * FROM db_bookshopping.tb_book where book_typeid = "+id+" limit 0,5 ;";
    	util.DbUtil dbUtil = new util.DbUtil();
    	Connection connection = null;
@@ -157,12 +156,7 @@ public class BookDao {
    	return list;
 
    }
-
-	/**
-	 * Í¨¹ı´«ÈëBookType¶ÔÏóÀ´²éÑ¯¸ÃÀàĞÍÏÂµÄËùÓĞÊé¼®
-	 * @param bookClass
-	 * @return Ò»¸öÊé¼®ÁĞ±í
-	 */
+	
 	public List<model.Book> getBookListByType(BookClass bookClass) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT * FROM db_bookshopping.tb_book where book_typeid = " + bookClass.getId();
 		util.DbUtil dbUtil = new util.DbUtil();
@@ -183,13 +177,14 @@ public class BookDao {
 			book.setQuantity(resultSet.getInt("Book_quantity"));
 			book.setUrl(resultSet.getString("Book_url"));
 			book.setAuthor(resultSet.getString("Book_author"));
-		//		System.out.println("getTYpeÀï" + book.getType());
+		//		System.out.println("getTYpeï¿½ï¿½" + book.getType());
 			list.add(book);
 		}
 		return list;
 
 	}
-	public Map<String, List<Book>> getAllBooks(){
+	
+    public Map<String, List<Book>> getAllBooks(){
 		BookDao dao = new BookDao();
 		List<BookClass> bookClassList =  dao.getBookClass();
 
@@ -209,23 +204,93 @@ public class BookDao {
 		return books;
 	}
 
-
+    //æ ¹æ®ä½œè€…æŸ¥è¯¢
+    public List<Book> searchBookByAuthor(String author){
+ 	   String sql = "SELECT * FROM db_bookshopping.tb_book WHERE book_author LIKE '%"+author+"%'";
+ 	   util.DbUtil dbUtil = new util.DbUtil();
+ 	   Connection connection = null;
+ 	   List<Book> list = new java.util.ArrayList();
+ 	   try {
+ 		 connection = dbUtil.getCon();
+ 		 java.sql.Statement statement = connection.createStatement();
+ 		 ResultSet set =  statement.executeQuery(sql);
+ 		 while(set.next()){
+ 			 Book book = new model.Book();
+ 				book.setAuthor(set.getString("book_author"));
+ 				book.setDescrible(set.getString("book_describe"));
+ 				book.setDiscount(set.getFloat("book_discount"));
+ 				book.setId(set.getInt("book_id"));
+ 				book.setName(set.getString("book_name"));
+ 				book.setType(set.getInt("book_typeid"));
+ 				book.setPrice(set.getFloat("book_price"));
+ 				book.setQuantity(set.getInt("book_quantity"));
+ 				book.setUrl(set.getString("book_url"));
+ 				list.add(book);
+ 		 }
+ 	} catch (ClassNotFoundException e) {
+ 		// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 	} catch (SQLException e) {
+ 		// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 	}finally{
+ 		try {
+ 			dbUtil.closeCon(connection);
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	}
+ 	   return list;
+    }
+    
+    //æ›´å…·ä¹¦åæŸ¥è¯¢ ä¸ç²¾ç¡®åŒ¹é…
+    public List<Book> searchBookByName(String bookName){
+ 	   String sql = "SELECT * FROM db_bookshopping.tb_book where book_name LIKE '%"+bookName+"%'";
+ 	   util.DbUtil dbUtil = new util.DbUtil();
+ 	   Connection connection = null;
+ 	   List<Book> list = new java.util.ArrayList();
+ 	   try {
+ 		 connection = dbUtil.getCon();
+ 		 java.sql.Statement statement = connection.createStatement();
+ 		 ResultSet set =  statement.executeQuery(sql);
+ 		 while(set.next()){
+ 			 Book book = new model.Book();
+ 				book.setAuthor(set.getString("book_author"));
+ 				book.setDescrible(set.getString("book_describe"));
+ 				book.setDiscount(set.getFloat("book_discount"));
+ 				book.setId(set.getInt("book_id"));
+ 				book.setName(set.getString("book_name"));
+ 				book.setType(set.getInt("book_typeid"));
+ 				book.setPrice(set.getFloat("book_price"));
+ 				book.setQuantity(set.getInt("book_quantity"));
+ 				book.setUrl(set.getString("book_url"));
+ 				list.add(book);
+ 		 }
+ 	} catch (ClassNotFoundException e) {
+ 		// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 	} catch (SQLException e) {
+ 		// TODO Auto-generated catch block
+ 		e.printStackTrace();
+ 	}finally{
+ 		try {
+ 			dbUtil.closeCon(connection);
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	}
+ 	   return list;
+    }
 
    //for testing
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		BookDao dao = new BookDao();
-		Map<String, List<Book>> map = dao.getAllBooks();
+		List<Book> books = dao.searchBookByAuthor("è´¾å¹³");
+		System.out.println(books);
 
-		List<Book> bl = (List<Book>)(map.get("Çà´ºÎÄÑ§"));
-		for(Book l:bl){
-		//	System.out.println(l.getName());
-		}
-		Set set = map.keySet();
-
-		for(Object s:set){
-			System.out.println(s.toString());
-
-		}
+		
 
 
 

@@ -29,8 +29,8 @@ public class Manager extends HttpServlet {
         HttpSession session = request.getSession();
         model.Manager oldManager = (model.Manager)session.getAttribute("manager");
         /*
-            若账号密码都没改动 提示出错
-            一者改动 另一者继承原数据
+                  若账号密码都没改动 提示出错
+                 一者改动 另一者继承原数据
         */
         if(manager.getName() == "" && manager.getPassword() == ""){
             request.setAttribute("errorMsg", "You have not change any option");
