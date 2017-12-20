@@ -18,7 +18,7 @@
         </li>
         <li class = "first-li"><a href="#">用户管理</a>
             <ul class="nav nav-pills nav-stacked">
-                <li><a href="/test/22">用户添加</a></li>
+                <li><a href="/test/user">用户添加</a></li>
                 <li><a href="#">用户删除</a></li>
                 <li><a href="#">用户修改</a></li>
             </ul>

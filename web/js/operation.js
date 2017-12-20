@@ -234,7 +234,36 @@ function nextPage(obj){
 			 clearInterval(interval);
 		 });
 	 })
-	 
-	 
+
+	//用ajax实现添加书籍
+    function addBook(){
+	 	var name = document.getElementById("name").value;
+        var author = document.getElementById("author").value;
+        var type = document.getElementById("type").value;
+        var price = document.getElementById("price").value;
+        var discount = document.getElementById("discount").value;
+        var describe = document.getElementById("describe").value;
+        var img = document.getElementById("img").value;
+        var quantity = document.getElementById("quantity").value;
+		if(name == "" || author == ""){
+			alert("至少先把书名和作者写上啊混蛋！！");
+		}
+
+        $.ajax({
+            url:"/book/add",
+            type:"post",
+            data:{"name":name, "author":author, "type":type, "price":price, "discount":discount, "describe":describe
+			, "img":img, "quantity":quantity},
+            success:function(result){
+                if(result.errorMsg){
+                    alert(result.errorMsg);
+                    return;
+                }else{
+                    alert(result.successMsg);
+                    window.location.href = "/test/book";
+                }
+            }
+        });
+    }
 
    

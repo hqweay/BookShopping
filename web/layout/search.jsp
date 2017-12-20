@@ -23,11 +23,11 @@
          <div class="search-bar">
            <select style = ""  id="usertype" name="method" class="selectpicker show-tick form-control" >
                                         <option value="byAuthor">根据作者</option>
-                                        <option value="byBookName">更具书名</option>
+                                        <option value="byBookName">根据书名</option>
                                         
            </select>
           <input type="text" name = "searchParam"/>
-          <input type = "submit" id = "submit" >
+          <input type = "submit" id = "submit" value="搜索" >
         </div>
         </form>
         <div class="my-cart">

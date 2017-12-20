@@ -36,9 +36,9 @@ public class BookType extends HttpServlet {
          			 int count = dao.insertBookClass(bookClass);
          			 System.out.println(count);
          			 if (count>0) {
-         				 object.put("successMsg", "娣诲姞鎴愬姛");
+         				 object.put("successMsg", "成功");
          			}else{
-         				object.put("errorMsg", "娣诲姞澶辫触锛屼綘鎯虫坊鍔犵殑涔︾被鍙兘宸茬粡瀛樺湪");
+         				object.put("errorMsg", "失败");
          			}
          		} catch (ClassNotFoundException e) {
          			// TODO Auto-generated catch block
@@ -48,16 +48,16 @@ public class BookType extends HttpServlet {
          			e.printStackTrace();
          		}
                 break;
-            //涔︾被淇敼
+            //更新
             case "/book-type/modify":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.modifyBookClass(bookClass, Integer.parseInt(bookId));
          			 System.out.println(count);
          			if (count>0) {
-         				 object.put("successMsg", "淇敼鎴愬姛");
+         				 object.put("successMsg", "更新成功");
          			}else{
-         				object.put("errorMsg", "淇敼澶辫触");
+         				object.put("errorMsg", "更新失败");
          				
          			}
          		} catch (ClassNotFoundException e) {
@@ -68,16 +68,16 @@ public class BookType extends HttpServlet {
          			e.printStackTrace();
          		}
             	break;
-            //涔︾被鍒犻櫎
+            //删除
             case "/book-type/delete":
             	 try {
          			 connection = dbUtil.getCon();
          			 int count = dao.deleteBookClass(Integer.parseInt(bookId));
          			 System.out.println(count);
          			if (count>0) {
-         				 object.put("successMsg", "鍒犻櫎鎴愬姛");
+         				 object.put("successMsg", "删除成功");
          			}else{
-         				object.put("errorMsg", "鍒犻櫎澶辫触");
+         				object.put("errorMsg", "删除失败");
          			}
          		} catch (ClassNotFoundException e) {
          			// TODO Auto-generated catch block

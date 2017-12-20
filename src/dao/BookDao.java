@@ -284,6 +284,63 @@ public class BookDao {
  	   return list;
     }
 
+
+    public boolean addBook(Connection connection, Book book) throws SQLException, ClassNotFoundException {
+    	String sql = "insert into tb_book (Book_name, Book_author, Book_price, " +
+				"Book_discount, Book_typeid, Book_quantity," +
+				" Book_describe, Book_url) values (?, ?, ?, ?, ?, ?, ?, ?) ";
+
+
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setString(1, book.getName());
+		statement.setString(2, book.getAuthor());
+		statement.setFloat(3, book.getPrice());
+		statement.setFloat(4, book.getDiscount());
+		statement.setInt(5, book.getType());
+		statement.setInt(6, book.getQuantity());
+		statement.setString(7, book.getDescrible());
+		statement.setString(8, book.getUrl());
+
+
+		int count = statement.executeUpdate();
+		//System.out.println("sjhsihsi" + count);
+		try{
+			if(count > 0){
+				return true;
+			}else{
+				return false;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return false;
+		}
+
+
+	}
+
+	//由书的id获取某一本书
+	public Book getBookByid(Connection connection, int id) throws SQLException {
+		String sql = "SELECT * FROM tb_book where book_id = ?";
+		PreparedStatement statement = connection.prepareStatement(sql);
+		statement.setInt(1, id);
+		ResultSet resultSet = statement.executeQuery();
+		Book book = new Book();
+		if(resultSet.next()){
+
+			book.setName(resultSet.getString("Book_name"));
+			book.setAuthor(resultSet.getString("Book_author"));
+			book.setDescrible(resultSet.getString("Book_describe"));
+			book.setType(resultSet.getInt("Book_typeid"));
+			book.setUrl(resultSet.getString("Book_url"));
+			book.setPrice(resultSet.getFloat("Book_price"));
+			book.setDiscount(resultSet.getFloat("Book_discount"));
+			book.setQuantity(resultSet.getInt("Book_quantity"));
+		}
+
+
+
+    	return book;
+	}
    //for testing
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		BookDao dao = new BookDao();

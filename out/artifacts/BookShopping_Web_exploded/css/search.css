@@ -15,7 +15,7 @@
 .search-bar button,
 .search-bar input {
   display: block;
-  /* 使之为块级元素  */
+  /* 浣夸箣涓哄潡绾у厓绱�  */
   height: inherit;
   outline: 0;
 }
@@ -24,15 +24,26 @@
   float: left;
   margin-left: 20px;
 }
+.selectpicker{
+	float:left;
+	margin-right: 10px;
+	width:20%;
+	
+}
+#submit{
+  border: 0;
+  float: left;
+  margin-left: 10px;
+  width: 20%;
+  border-radius: 10px;
+}
 .search-bar input{
   border: groove;
-
 }
 
 .search-bar input {
   float: left;
   width: 50%;
-
   font-size: 88%;
 }
 .search-bar input:hover {

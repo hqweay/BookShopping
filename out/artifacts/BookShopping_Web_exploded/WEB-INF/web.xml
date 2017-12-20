@@ -6,7 +6,16 @@
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
-
+    
+    <!-- Search -->
+    <servlet>
+    	<servlet-name>search</servlet-name>
+    	<servlet-class>web.Search</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>search</servlet-name>
+    	<url-pattern>/search</url-pattern>
+    </servlet-mapping>
 	<!--RegisterServlet -->
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -56,18 +65,14 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>customerSetServlet</servlet-name>
-		<url-pattern>/customerSet.jsp</url-pattern>
+		<url-pattern>/customer/*</url-pattern>
 	</servlet-mapping>
-
 
 
 	<servlet-mapping>
 		<servlet-name>shoppingCar</servlet-name>
 		<url-pattern>/cart</url-pattern>
 	</servlet-mapping>
-	
-
-
 	<!-- 管理员登陆-->
 	<servlet-mapping>
 		<servlet-name>managerLogin</servlet-name>
@@ -98,7 +103,16 @@
         <url-pattern>/book-type/*</url-pattern>
     </servlet-mapping>
 
-	<!--Filter 配置
+	<!-- 书籍的操作-->
+	<servlet>
+		<servlet-name>bookSet</servlet-name>
+		<servlet-class>web.admin.Book</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>bookSet</servlet-name>
+		<url-pattern>/book/*</url-pattern>
+	</servlet-mapping>
+	<!--Filter 配置 -->
 	<filter>
 		<filter-name>managerFilter</filter-name>
 		<filter-class>filter.admin.Manager</filter-class>
@@ -108,5 +122,5 @@
 		<url-pattern>/admin/*</url-pattern>
 		<url-pattern>/test/*</url-pattern>
 	</filter-mapping>
-	-->
+
 </web-app>
